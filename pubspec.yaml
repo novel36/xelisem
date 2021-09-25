@@ -30,6 +30,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   sms_advanced: ^1.0.1
   shared_preferences:
+  # clay_containers: ^0.3.2
+  sizer: 
+  flutter_screenutil: 
+  flutter_slidable: 
+  bubble: 
+  permission_handler:
+  flutter_spinkit:
+  flutter_sequence_animation:
 
 dev_dependencies:
   flutter_test:

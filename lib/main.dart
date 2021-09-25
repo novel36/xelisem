@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:message_app/screens/backgound.dart';
+// import 'package:message_app/screens/messageHome.dart';
+// import 'package:message_app/screens/myMessage.dart';
+import 'package:xelisem/screens/myMessage.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+// import 'package:message_app/screens/kidsHome.dart';
+// import 'package:message_app/screens/messageHome.dart';
 
-  @override
-  _MyAppState createState() => _MyAppState();
+void main() {
+  runApp(MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text("O.....K....A.....Y"),
+    return ScreenUtilInit(
+      designSize: Size(360.0, 672.0),
+      builder: () => MaterialApp(
+        color: Colors.blue,
+        themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        home: HomePageWidget(),
       ),
     );
   }
