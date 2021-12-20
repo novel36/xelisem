@@ -1,10 +1,6 @@
-import 'dart:io';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:xelisem/model/Message.dart';
-import 'package:xelisem/screens/myMessageDetail.dart';
-import 'package:xelisem/widgets/MessageBackgroundWidget.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // import 'package:sms/contact.dart';
 import 'package:sms_advanced/contact.dart';
@@ -17,7 +13,6 @@ import 'package:sms_advanced/sms_advanced.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 SmsQuery query = new SmsQuery();
 
@@ -31,7 +26,8 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
   late TextEditingController textController;
-  SlidableController _slidableController = SlidableController();
+  // ignore: unused_field
+  late SlidableController _slidableController;
   // final scaffoldKey = GlobalKey<ScaffoldState>();
   // final telephonySms.Telephony telephony = telephonySms.Telephony.instance;
   List<SmsMessage> messages = [];
@@ -130,6 +126,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   @override
   void initState() {
     super.initState();
+    _slidableController = SlidableController(this);
     sequenceAnimation = new SequenceAnimationBuilder()
         .addAnimatable(
             animatable: new ColorTween(begin: Colors.white, end: Colors.green),

@@ -39,10 +39,17 @@ dependencies:
   flutter_spinkit:
   # flutter_sequence_animation:
   flutter_sequence_animation: "^4.0.0-nullsafety"
+  hive:
+  hive_flutter:
+  path_provider:
+  # path_provider: ^2.0.5
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: 
+  build_runner: 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

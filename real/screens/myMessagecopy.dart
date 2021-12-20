@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:xelisem/model/Message.dart';
 import 'package:xelisem/screens/myMessageDetail.dart';
 import 'package:xelisem/widgets/MessageBackgroundWidget.dart';
@@ -23,9 +22,9 @@ class HomePageWidget extends StatefulWidget {
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _HomePageWidgetState extends State<HomePageWidget>
+    with TickerProviderStateMixin {
   late TextEditingController textController;
-  SlidableController _slidableController = SlidableController();
   // final scaffoldKey = GlobalKey<ScaffoldState>();
   // final telephonySms.Telephony telephony = telephonySms.Telephony.instance;
   List<SmsMessage> messages = [];
@@ -370,144 +369,65 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         // Message deletedMessage =
                         //     Message(body: [], contactInfo: "", type: "");
 
-                        return Slidable(
-                          actionPane: SlidableDrawerActionPane(),
-                          controller: _slidableController,
-                          key: ValueKey(message[index]),
-                          closeOnScroll: true,
-                          actionExtentRatio: 0.25,
-                          actions: <Widget>[
-                            IconSlideAction(
-                              caption: 'Archive',
-                              color: Colors.blue,
-                              icon: Icons.archive,
-                              onTap: () {},
-                            )
-                          ],
-                          secondaryActions: <Widget>[
-                            IconSlideAction(
-                                caption: 'Favorite',
-                                color: Colors.blue,
-                                icon: Icons.favorite,
-                                onTap: () {
-                                  _favoritemessages
-                                      .add(message.elementAt(index));
-                                  ScaffoldMessenger.of(context)
-                                      .removeCurrentSnackBar();
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          "Successfully Added to Favorite!",
-                                          style: TextStyle(fontSize: 15),
-                                        ),
-                                        Icon(
-                                          Icons.check,
-                                          color: Colors.white,
-                                        )
-                                      ],
+                        return Card(
+                          color: Color(0xFF2A2A2A),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9)),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MessageDetail(
+                                            body: message[index].body,
+                                            messageLength:
+                                                message[index].body.length,
+                                          )));
+                            },
+                            splashColor: Color(0xFF44322A),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: Color(0xFFF36E36),
+                                      child: Text(
+                                        "A",
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.white),
+                                      ),
                                     ),
-                                    backgroundColor: Colors.green,
-                                    duration: Duration(seconds: 1),
-                                  ));
-                                  setState(() {});
-                                }),
-                            IconSlideAction(
-                              caption: 'Delete',
-                              color: Colors.red,
-                              icon: Icons.delete,
-                              onTap: () {
-                                setState(() {
-                                  deletedMessage = message.removeAt(index);
-                                });
-                                ScaffoldMessenger.of(context)
-                                    .removeCurrentSnackBar();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(
-                                      'Successfully Delete',
-                                      style: TextStyle(fontSize: 15),
+                                    SizedBox(
+                                      width: 15,
                                     ),
-                                    action: SnackBarAction(
-                                        label: "Undo",
-                                        textColor: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            message.insert(
-                                                index, deletedMessage);
-                                          });
-                                        }),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                          child: Card(
-                            color: Color(0xFF2A2A2A),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(9)),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MessageDetail(
-                                              body: message[index].body,
-                                              messageLength:
-                                                  message[index].body.length,
-                                            )));
-                              },
-                              splashColor: Color(0xFF44322A),
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Container(
-                                  child: Row(
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundColor: Color(0xFFF36E36),
-                                        child: Text(
-                                          "A",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.white),
-                                        ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              message[index].isUnsavedContact
+                                                  ? "Unsaved"
+                                                  : message[index].contactInfo,
+                                              style: TextStyle(
+                                                  fontSize: 14.5,
+                                                  color: Colors.white)),
+                                          Text(message[index].contactInfo,
+                                              style: TextStyle(
+                                                  fontSize: 15.5,
+                                                  color: Colors.white)),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                                message[index].isUnsavedContact
-                                                    ? "Unsaved"
-                                                    : message[index]
-                                                        .contactInfo,
-                                                style: TextStyle(
-                                                    fontSize: 14.5,
-                                                    color: Colors.white)),
-                                            Text(message[index].contactInfo,
-                                                style: TextStyle(
-                                                    fontSize: 15.5,
-                                                    color: Colors.white)),
-                                          ],
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.check_circle,
-                                        size: 19,
-                                        color: Colors.white,
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    Icon(
+                                      Icons.check_circle,
+                                      size: 19,
+                                      color: Colors.white,
+                                    )
+                                  ],
                                 ),
                               ),
                             ),

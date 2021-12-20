@@ -1,10 +1,5 @@
-import 'dart:io';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:xelisem/model/Message.dart';
-import 'package:xelisem/screens/myMessageDetail.dart';
-import 'package:xelisem/widgets/MessageBackgroundWidget.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // import 'package:sms/contact.dart';
 import 'package:sms_advanced/contact.dart';
@@ -17,7 +12,6 @@ import 'package:sms_advanced/sms_advanced.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 SmsQuery query = new SmsQuery();
 
@@ -31,11 +25,9 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
   late TextEditingController textController;
-  SlidableController _slidableController = SlidableController();
   // final scaffoldKey = GlobalKey<ScaffoldState>();
   // final telephonySms.Telephony telephony = telephonySms.Telephony.instance;
   List<SmsMessage> messages = [];
-  List<Message> _favoritemessages = [];
 
   List<SmsThread> threads = [];
   // List<String> _threadContactInfo = [];
@@ -63,21 +55,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
     vsync: this,
   );
 
-  late final Animation<double> _animationOne =
-      Tween(begin: animOneBegin, end: animOneEnd).animate(CurvedAnimation(
-    parent: _controllerOne,
-    curve: Curves.fastOutSlowIn,
-  ));
-  late final Animation<double> _animationTwo =
-      Tween(begin: animTwoBegin, end: animTwoEnd).animate(CurvedAnimation(
-    parent: _controllerTwo,
-    curve: Curves.fastOutSlowIn,
-  ));
-  late final Animation<double> _animationThree =
-      Tween(begin: animTwoBegin, end: animTwoEnd).animate(CurvedAnimation(
-    parent: _controllerTwo,
-    curve: Curves.fastOutSlowIn,
-  ));
   late final sequenceAnimation;
   void getMessage() async {
     // await telephony.requestPhonePermissions;
